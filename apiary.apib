@@ -3,9 +3,136 @@ HOST: http://polls.apiblueprint.org/
 
 # FntBeacons API
 
-API for iBeacon Devices management.
+API for iBeacon Devices management. 
 
-## iBeacon Devices List [/dl{id}]
+## Device Type List [/bdtl/{id}]
+
+### List All Device Types [GET]
+
+List of available iBeacon device types.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "Estimote iBeacons",
+                "type": "Estimote",
+                "battery_life": 12
+            }
+        ]
+
+## Device Type Definition [/bdtc]
+
+### Create a New Device Type [POST]
+
+Add a new device.
+
++ Request (application/json)
+
+            {
+                "name": "Estimote iBeacon",
+                "type": "Estimote",
+                "battery_life": 12,
+                "tx_power": 304,
+                "tx_freq": 100
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /bdtl/1
+            
+    + Body
+    
+            {
+                "id":1
+            }
+
+
+## Device Type Update [/bdtu]
+
+### Update a Device Type [POST]
+
+Update a device type.
+
++ Request (application/json)
+
+            {
+                "id": 1,
+                "name": "Estimote iBeacon",
+                "type": "Estimote",
+                "battery_life": 12,
+                "tx_power": 304,
+                "tx_freq": 100
+            }
+
++ Response 204 (application/json)
+
+
+## Address Type List [/batl/{id}]
+
+### List All Address Types [GET]
+
+List of available iBeacon Address Types.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 0,
+                "name": "Room Level"
+            },
+            {
+                "id": 1,
+                "name": "Near field localization"
+            }
+        ]
+               
+               
+## Address Type Definition [/batc]
+
+### Create a New Address Type [POST]
+
+Add a new address type.
+
++ Request (application/json)
+
+            {
+                "name": "Triangulation"
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /batl/1
+            
+    + Body
+    
+            {
+                "id":1
+            }
+
+
+## Address Type Update [/batu]
+
+### Update an Address Type [POST]
+
+Update a device type.
+
++ Request (application/json)
+
+            {
+                "id": 3,
+                "name": "Triangulation 1"
+            }
+
++ Response 204 (application/json)
+
+
+## Device List [/bdl/{id}]
 
 ### List All Devices [GET]
 
@@ -13,16 +140,25 @@ API for iBeacon Devices management.
 
         [
             {
+                "id": 1,
                 "name": "iBeacon Exit room 1",
                 "type": "Estimote",
-                "id": 1,
+                "status": "used",
                 "major": 3556
-                "minor": 15
-                "address": 32569,
+                "minor": 15,
+                "tx_power": 304,
+                "tx_freq": 100,
+                "created": "2017-05-21",
+                "battery": "2017-05-21",
+                "address":  {
+                                "location_id": 143,
+                                "room_id" : 15,
+                                "place_id": 10
+                            }
             }
         ]
 
-## iBeacon Devices Definition [/dc]
+## Device Definition [/bdc]
 
 ### Create a New Device [POST]
 
@@ -41,7 +177,7 @@ Add a new device.
 
     + Headers
 
-            Location: /dl/1
+            Location: /bdl/1
             
     + Body
     
@@ -50,18 +186,19 @@ Add a new device.
             }
 
 
-## iBeacon Devices Location [/ds]
+## Device Setup [/bds]
 
-### Create a New Device [POST]
+### Update Setup parameters [POST]
 
-Set a new device location.
+Set device configuration parameters.
 
 + Request (application/json)
 
         {
             "id":1,
             "name": "iBeacon Enter room 1",
-            "address" : 32569
+            "tx_power": 304,
+            "tx_freq": 100
         }
 
 + Response 204
