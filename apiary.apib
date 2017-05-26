@@ -1,204 +1,98 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# FntBeacons API
+# FntGallery API
 
-API for iBeacon Devices management. 
+First API version for an exhibit description
 
-## Device Type List [/bdtl/{id}]
+## Gallery [/g]
 
-### List All Device Types [GET]
-
-List of available iBeacon device types.
+### List All Galleries [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "id": 1,
-                "name": "Estimote iBeacons",
-                "type": "Estimote",
-                "battery_life": 12
-            }
-        ]
-
-## Device Type Definition [/bdtc]
-
-### Create a New Device Type [POST]
-
-Add a new device.
-
-+ Request (application/json)
-
-            {
-                "name": "Estimote iBeacon",
-                "type": "Estimote",
-                "battery_life": 12,
-                "tx_power": 304,
-                "tx_freq": 100
-            }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /bdtl/1
-            
-    + Body
-    
-            {
-                "id":1
-            }
-
-
-## Device Type Update [/bdtu]
-
-### Update a Device Type [POST]
-
-Update a device type.
-
-+ Request (application/json)
-
-            {
-                "id": 1,
-                "name": "Estimote iBeacon",
-                "type": "Estimote",
-                "battery_life": 12,
-                "tx_power": 304,
-                "tx_freq": 100
-            }
-
-+ Response 204 (application/json)
-
-
-## Address Type List [/batl/{id}]
-
-### List All Address Types [GET]
-
-List of available iBeacon Address Types.
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id": 0,
-                "name": "Room Level"
-            },
-            {
-                "id": 1,
-                "name": "Near field localization"
-            }
-        ]
-               
-               
-## Address Type Definition [/batc]
-
-### Create a New Address Type [POST]
-
-Add a new address type.
-
-+ Request (application/json)
-
-            {
-                "name": "Triangulation"
-            }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /batl/1
-            
-    + Body
-    
-            {
-                "id":1
-            }
-
-
-## Address Type Update [/batu]
-
-### Update an Address Type [POST]
-
-Update a device type.
-
-+ Request (application/json)
-
-            {
-                "id": 3,
-                "name": "Triangulation 1"
-            }
-
-+ Response 204 (application/json)
-
-
-## Device List [/bdl/{id}]
-
-### List All Devices [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id": 1,
-                "name": "iBeacon Exit room 1",
-                "type": "Estimote",
-                "status": "used",
-                "major": 3556
-                "minor": 15,
-                "tx_power": 304,
-                "tx_freq": 100,
-                "created": "2017-05-21",
-                "battery": "2017-05-21",
+                "gid": 1,
+                "lang": "CZ",
+                "name": "Galerie Václava Špály",
+                "poster": "galerie.png",
+                "published_at": "2015-08-05T08:40:51",
+                "about": "Short introduction",
                 "address":  {
-                                "location_id": 143,
-                                "room_id" : 15,
-                                "place_id": 10
+                                "city": "Prague",
+                                "street": "Narodni 10",
+                                "zip": "110 00",
+                                "gps": "",
+                                "wtg": "jak se k nam dostanete-popis"
+                            },
+                "contact": [ {
+                               "name":  "Pavel Lagner",
+                               "title": "kurátor",
+                               "phone": "420 000 0000"
+                               "email": "pl@email.cz"
+                             }
+                            ],
+                "ohours": [ 
+                            {
+                               "item": "Daily 08:00-18:00"
                             }
+                          ],
+                "url": "http://www.galerievaclavaspaly.cz",
+                "price": [ { "item": "Základní vstupné",
+                             "value": "100"
+                             "crncy": "CZK"
+                           }
+                         ],
             }
         ]
 
-## Device Definition [/bdc]
+## Exhibition [/h]
 
-### Create a New Device [POST]
+### List All Exhibitions [GET]
 
-Add a new device.
++ Response 200 (application/json)
 
-+ Request (application/json)
-
+        [
             {
-                "name": "New iBeacon",
-                "type": "Estimote",
-                "major": 3556
-                "minor": 15
-            }
+                "gid": 1,
+                "lang": "CZ",
+                "published_at": "2015-08-05T08:40:51",
+                "current": 10,
+                "exhibition": [ {
+                                    "hid:": 10
+                                    "name": "Jan Pistek",
+                                    "from": "01-05-2017",
+                                    "to":   "01-08-2017",
+                                    "about": "short introduction"
+                                    "author": "short introduction"
+                                }
+                              ],
+                "poster": "pistek.png",
+        ]
 
-+ Response 201 (application/json)
 
-    + Headers
+## Exhibit [/e]
 
-            Location: /bdl/1
-            
-    + Body
-    
+### List All Exhibits [GET]
+
++ Response 200 (application/json)
+
+        [
             {
-                "id":1
-            }
-
-
-## Device Setup [/bds]
-
-### Update Setup parameters [POST]
-
-Set device configuration parameters.
-
-+ Request (application/json)
-
-        {
-            "id":1,
-            "name": "iBeacon Enter room 1",
-            "tx_power": 304,
-            "tx_freq": 100
-        }
-
-+ Response 204
+                "gid": 1,
+                "lang": "CZ",
+                "published_at": "2015-08-05T08:40:51",
+                "created": "1958",
+                "technique": "olejomalba",
+                "size": "60x80",
+                "original": "yes",
+                "gallery": "zapujcen ze soukrome sbirky",
+                "picture": "obraz1.png",
+                "video:": "obraz1.mpeg",
+                "title": "Title",
+                "about": "Exhibit description",
+                "author": "an optional author statement",
+                "url": "an optional url for further reading"
+            }    
+        ]
